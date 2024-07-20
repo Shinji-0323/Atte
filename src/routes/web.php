@@ -13,5 +13,9 @@ use App\Http\Controllers\AttendanceController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::middleware('auth')->group(function () {
+    Route::get('/', [AttendanceController::class, 'index']);
+});
 
-Route::get('/', [AttendanceController::class, 'index']);
+Route::get('/attendance/date', [AttendanceController::class, 'listOn'])
+    ->name('attendance/date');

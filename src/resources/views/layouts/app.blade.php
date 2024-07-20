@@ -18,6 +18,7 @@
         </div>
         <div class="header__right">
             <ul class="header__right-list">
+                @if (Auth::check())
                 <li class="header__right-item">
                     <a class="header__item-link" href="/">ホーム</a>
                 </li>
@@ -25,8 +26,13 @@
                     <a class="header__item-link" href="">日付一覧</a>
                 </li>
                 <li class="header__right-item">
-                    <a class="header__item-link" href="">ログアウト</a>
+                    <form action="/logout" method="post">
+                        ログアウト
+                        @csrf
+                        <link class="header__item-link">ログアウト</link>
+                    </form>
                 </li>
+                @endif
             </ul>
         </div>
     </header>

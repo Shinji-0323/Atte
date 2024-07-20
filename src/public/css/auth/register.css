@@ -1,44 +1,68 @@
-.register-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: #f8f9fa;
+.header__wrap {
+    padding-top: 60px;
+    padding-bottom: 10px;
+    text-align: center;
 }
 
-.register-box {
+.header__text {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.form__wrap {
+    text-align: center;
+}
+
+.form__item {
     width: 300px;
-    padding: 20px;
-    background: #fff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    text-align: center;
+    margin: auto;
+    margin-top: 20px;
+    margin-bottom: 5px;
 }
 
-.register-box input {
+.form__input {
     width: 100%;
-    margin-bottom: 10px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    height: 35px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border: 2px solid darkgray;
+    border-radius: 5px;
+    background-color: #eee;
 }
 
-.register-box button {
-    width: 100%;
-    padding: 10px;
-    border: none;
-    background: #007bff;
-    color: #fff;
-    border-radius: 4px;
-    cursor: pointer;
+
+.form__input-button {
+    border-style: none;
+    background-color: rgb(38, 81, 207);
+    color: white;
 }
 
-.register-box button:hover {
-    background: #0056b3;
-}
-
-.login-link {
-    margin-top: 10px;
-    display: block;
+.login__wrap {
     text-align: center;
+    margin-top: 20px;
+    padding-top: 20px;
+}
+
+.login__item-text {
+    margin: 0;
+    color: gray;
+    font-size: 12px;
+}
+
+.login__item-button {
+    font-size: 12px;
+    color: rgb(38, 81, 207);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.error__message {
+    color: red;
+}
+
+.login-error__message {
+    text-align: center;
+    padding: 15px;
+    background-color: red;
+    color: white;
 }
