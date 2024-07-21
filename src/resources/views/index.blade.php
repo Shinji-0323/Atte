@@ -7,7 +7,7 @@
 @section('content')
 <div class="header__wrap">
     <p class="header__text">
-    さんお疲れ様です！
+    {{ \Auth::user()->name }}さんお疲れ様です！
     </p>
 </div>
 

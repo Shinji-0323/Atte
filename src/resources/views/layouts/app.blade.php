@@ -27,7 +27,6 @@
                 </li>
                 <li class="header__right-item">
                     <form action="/logout" method="post">
-                        ログアウト
                         @csrf
                         <link class="header__item-link">ログアウト</link>
                     </form>
