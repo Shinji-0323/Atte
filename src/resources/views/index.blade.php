@@ -11,19 +11,30 @@
     </p>
 </div>
 
-<form class="form__wrap">
-    <div class="form__item">
-        <button  class="form__item-button">勤務開始</button>
-    </div>
-    <div class="form__item">
-        <button  class="form__item-button">勤務終了</button>
-    </div>
-    <div class="form__item">
-        <button  class="form__item-button">休憩開始</button>
-    </div>
-    <div class="form__item">
-        <button  class="form__item-button">休憩終了</button>
-    </div>
-</form>
-
+<div class="form">
+    <form class="form__wrap" action="/work/start" method="post">
+        @csrf
+        <div class="form__item">
+            <button class="form__item-button" type="submit" name="start_work" disabled>勤務開始</button>
+        </div>
+    </form>
+    <form class="form__wrap" action="/work/end" method="post">
+        @csrf
+        <div class="form__item">
+            <button class="form__item-button" type="submit" name="end_work" disabled>勤務終了</button>
+        </div>
+    </form>
+    <form class="form__wrap" action="/rest/start" method="post">
+        @csrf
+        <div class="form__item">
+            <button class="form__item-button" type="submit" name="start_rest" disabled>休憩開始</button>
+        </div>
+    </form>
+    <form class="form__wrap" action="/rest/end" method="post">
+        @csrf
+        <div class="form__item">
+            <button class="form__item-button" type="submit" name="end_rest" disabled>休憩終了</button>
+        </div>
+    </form>
+</div>
 @endsection

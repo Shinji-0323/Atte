@@ -8,7 +8,7 @@
     font-size: 20px;
 }
 
-.form__wrap {
+.form {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
@@ -16,7 +16,7 @@
     margin: auto;
 }
 
-.form__item {
+.form__wrap {
     width: 50%;
     padding: 15px;
 }
