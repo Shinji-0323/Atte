@@ -29,79 +29,69 @@ class AttendanceController extends Controller
 
     public function startWork(Request $request)
     {
-        $now_date = Carbon::now()->format('Y-m-d');
-        $now_time = Carbon::now()->format('H:i:s');
-        $user_id = Auth::user()->id;
-        if ($request->has('start_work')) {
-            $works = new Work();
-            $works->date = $now_date;
-            $works->start_time = $now_time;
-            $works->user_id = $user_id;
+        $user = Auth::user();
+        $oldTimestamp = Work::where('user_id',$user->id)->latest()->first();
+
+        $oldTimestampDay = '';
+
+        if($oldTimestamp) {
+            $oldTimestampStartWork = new Carbon($oldTimestamp->startWork);
+            $oldTimestampDay = $oldTimestampStartWork->startOfDay();
         }
-        return redirect('/');
+        $newTimestampDay = Carbon::today();
+
+        if(($oldTimestampDay == $newTimestampDay) && (empty($oldTimestamp->endWork))){
+            return redirect()->back();
+        };
+
+
+        $time = Work::create([
+            'user_id' => $user->id,
+            'date' => Carbon::now(),
+            'start_time' => Carbon::now(),
+        ]);
+
+        return redirect()->back();
     }
 
     public function endWork(Request $request)
     {
-        $now_date = Carbon::now()->format('Y-m-d');
-        $now_time = Carbon::now()->format('H:i:s');
-        $user_id = Auth::user()->id;
-        if ($request->has('start_rest') || $request->has('end_rest')) {
-            $work_id = Work::where('user_id', $user_id)
-                ->where('date', $now_date)
-                ->first()
-                ->id;
+        $user = Auth::user();
+        $endWork = Work::where('user_id',$user->id)->latest()->first();
+
+        if( !empty($endWork->endWork)) {
+            return redirect()->back();
         }
-        if ($request->has('end_work')) {
-            $attendance = Work::where('user_id', $user_id)
-                ->where('date', $now_date)
-                ->first();
-            $attendance->end = $now_time;
-            $status = 3;
-        }
+        $endWork->update([
+            'end_time' => Carbon::now()
+        ]);
+
         return redirect()->back();
-    }
+        }
 
     public function startRest(Request $request)
     {
-        $now_date = Carbon::now()->format('Y-m-d');
-        $now_time = Carbon::now()->format('H:i:s');
-        $user_id = Auth::user()->id;
-        if ($request->has('start_rest') || $request->has('end_rest')) {
-            $work_id = Work::where('user_id', $user_id)
-                ->where('date', $now_date)
-                ->first()
-                ->id;
-        }
+        $user = Auth::user();
+        $work = Work::where('user_id',$user->id)->latest()->first();
 
-        if ($request->has('start_rest')) {
-            $attendance = new Rest();
-            $attendance->start = $now_time;
-            $attendance->work_id = $work_id;
-            $status = 2;
-        }
+            $attendance = Rest::create([
+                'work_id' => $work->id,
+                'start_time' => Carbon::now(),
+            ]);
+
         return redirect()->back();
     }
 
     public function endRest(Request $request)
     {
-        $now_date = Carbon::now()->format('Y-m-d');
-        $now_time = Carbon::now()->format('H:i:s');
-        $user_id = Auth::user()->id;
-        if ($request->has('start_rest') || $request->has('end_rest')) {
-            $work_id = Work::where('user_id', $user_id)
-                ->where('date', $now_date)
-                ->first()
-                ->id;
-        }
-        if ($request->has('end_rest')) {
-            $attendance = Rest::where('work_id', $work_id)
-                ->whereNotNull('start')
-                ->whereNull('end')
-                ->first();
-            $attendance->end = $now_time;
-            $status = 1;
-        }
+        $user = Auth::user();
+        $work = Work::where('user_id',$user->id)->latest()->first();
+        $endRest = Rest::where('work_id',$work->id)->latest()->first();
+
+            $endRest->update([
+                'end_time' => Carbon::now(),
+            ]);
+
         return redirect()->back();
     }
 
