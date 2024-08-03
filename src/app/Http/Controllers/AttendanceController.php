@@ -41,7 +41,7 @@ class AttendanceController extends Controller
         $newTimestampDay = Carbon::today();
 
         if(($oldTimestampDay == $newTimestampDay) && (empty($oldTimestamp->endWork))){
-            return redirect()->back();
+            return redirect('/');
         };
 
 
@@ -51,7 +51,7 @@ class AttendanceController extends Controller
             'start_time' => Carbon::now(),
         ]);
 
-        return redirect()->back();
+        return redirect('/');
     }
 
     public function endWork(Request $request)
@@ -66,7 +66,7 @@ class AttendanceController extends Controller
             'end_time' => Carbon::now()
         ]);
 
-        return redirect()->back();
+        return redirect('/');
         }
 
     public function startRest(Request $request)
@@ -74,12 +74,12 @@ class AttendanceController extends Controller
         $user = Auth::user();
         $work = Work::where('user_id',$user->id)->latest()->first();
 
-            $attendance = Rest::create([
-                'work_id' => $work->id,
-                'start_time' => Carbon::now(),
-            ]);
+        $attendance = Rest::create([
+            'work_id' => $work->id,
+            'start_time' => Carbon::now(),
+        ]);
 
-        return redirect()->back();
+        return redirect('/');
     }
 
     public function endRest(Request $request)
@@ -88,11 +88,11 @@ class AttendanceController extends Controller
         $work = Work::where('user_id',$user->id)->latest()->first();
         $endRest = Rest::where('work_id',$work->id)->latest()->first();
 
-            $endRest->update([
-                'end_time' => Carbon::now(),
-            ]);
+        $endRest->update([
+            'end_time' => Carbon::now(),
+        ]);
 
-        return redirect()->back();
+        return redirect('/');
     }
 
 }

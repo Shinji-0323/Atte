@@ -16,6 +16,12 @@ class ClearSessionDaily
      */
     public function handle(Request $request, Closure $next)
     {
+        $lastClear = Session::get('last_clear', now()->subDay());
+
+        if (now()->diffInDays($lastClear) > 0) {
+            Session::forget('state');
+            Session::put('last_clear', now());
+        }
         return $next($request);
     }
 }
