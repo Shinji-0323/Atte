@@ -15,15 +15,29 @@ class AttendanceController extends Controller
     {
         $now_date = Carbon::today();
         $user_id = Auth::user()->id;
-        $confirm_date = Work::where('user_id', $user_id)
-            ->where('date', $now_date)
+        $work = Work::where('user_id', $user_id)
+            ->whereDate('date', $now_date)
             ->first();
 
-        if (!$confirm_date) {
-            $status = 0;
+        if (!$work) {
+            $status = 1; // 勤務開始前
+        } elseif ($work && !$work->end_time) {
+            $rest = Rest::where('work_id', $work->id)
+                ->orderBy('start_time', 'desc')
+                ->first();
+
+            if (!$rest) {
+                $status = 2; // 勤務中
+            } elseif ($rest && !$rest->end_time) {
+                $status = 3; // 休憩中
+            } else {
+                $status = 2; // 勤務中
+            }
         } else {
-            $status = Auth::user()->status;
+            $status = 4; // 勤務終了
         }
+
+
         return view('index', compact('status'));
     }
 
