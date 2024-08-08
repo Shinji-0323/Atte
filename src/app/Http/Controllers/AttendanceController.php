@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Work;
 use App\Models\Rest;
+use Illuminate\Support\Facades\DB;
 
 class AttendanceController extends Controller
 {
@@ -107,6 +108,28 @@ class AttendanceController extends Controller
         ]);
 
         return redirect('/');
+    }
+
+    public function getAttendance(Request $request)
+    {
+        if (is_null($request->date)) {
+            $selectDay = Carbon::today();
+            $previous = Carbon::yesterday();
+            $next = Carbon::tomorrow();
+
+        } else {
+            $selectDay = new Carbon($request->date);
+            $previous = (new Carbon($request->date))->subDay();
+            $next = (new Carbon($request->date))->addDay();
+        }
+
+        $attendances = DB::table('rests')
+        ->rightJoin('works', 'rests.work_id', '=', 'works.id')
+        ->join('users', 'works.user_id', '=', 'users.id')
+        ->whereDate('works.date', $selectDay)
+        ->paginate(5);
+
+    return view('/attendance', compact('attendances', 'selectDay', 'previous', 'next'));
     }
 
 }

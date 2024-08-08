@@ -29,7 +29,7 @@ footer {
 }
 
 .header__right {
-    width: 500px;
+    width: 300px;
     margin-right: 50px;
 }
 
@@ -46,6 +46,10 @@ footer {
 .header__item-link {
     color: inherit;
     text-decoration: none;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
 }
 
 .footer__item {
