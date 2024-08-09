@@ -12,8 +12,8 @@ class Work extends Model
     protected $fillable = [
         'user_id',
         'date',
-        'start_time',
-        'end_time',
+        'work_start',
+        'work_end',
         'total'
         ];
 

@@ -18,9 +18,9 @@ class WorkFactory extends Factory
         return [
             'user_id' => function () {
                 return User::factory()->create()->id;},
-            'date' => $this->faker->date(),
-            'start_time' => $this->faker->time(),
-            'end_time' => $this->faker->time()
+            'date' => $this->faker->dateTimeBetween($startDate = 'now', $endDate = '+2 week'),
+            'work_start' => $this->faker->time(),
+            'work_end' => $this->faker->time()
         ];
     }
 }

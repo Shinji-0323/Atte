@@ -22,14 +22,14 @@ class AttendanceController extends Controller
 
         if (!$work) {
             $status = 1; // 勤務開始前
-        } elseif ($work && !$work->end_time) {
+        } elseif ($work && !$work->work_end) {
             $rest = Rest::where('work_id', $work->id)
-                ->orderBy('start_time', 'desc')
+                ->orderBy('rest_start', 'desc')
                 ->first();
 
             if (!$rest) {
                 $status = 2; // 勤務中
-            } elseif ($rest && !$rest->end_time) {
+            } elseif ($rest && !$rest->rest_end) {
                 $status = 3; // 休憩中
             } else {
                 $status = 2; // 勤務中
@@ -47,23 +47,10 @@ class AttendanceController extends Controller
         $user = Auth::user();
         $oldTimestamp = Work::where('user_id',$user->id)->latest()->first();
 
-        $oldTimestampDay = '';
-
-        if($oldTimestamp) {
-            $oldTimestampStartWork = new Carbon($oldTimestamp->startWork);
-            $oldTimestampDay = $oldTimestampStartWork->startOfDay();
-        }
-        $newTimestampDay = Carbon::today();
-
-        if(($oldTimestampDay == $newTimestampDay) && (empty($oldTimestamp->endWork))){
-            return redirect('/');
-        };
-
-
         $time = Work::create([
             'user_id' => $user->id,
             'date' => Carbon::now(),
-            'start_time' => Carbon::now(),
+            'work_start' => Carbon::now(),
         ]);
 
         return redirect('/');
@@ -78,7 +65,7 @@ class AttendanceController extends Controller
             return redirect()->back();
         }
         $endWork->update([
-            'end_time' => Carbon::now()
+            'work_end' => Carbon::now()
         ]);
 
         return redirect('/');
@@ -91,7 +78,7 @@ class AttendanceController extends Controller
 
         $attendance = Rest::create([
             'work_id' => $work->id,
-            'start_time' => Carbon::now(),
+            'rest_start' => Carbon::now(),
         ]);
 
         return redirect('/');
@@ -104,13 +91,13 @@ class AttendanceController extends Controller
         $endRest = Rest::where('work_id',$work->id)->latest()->first();
 
         $endRest->update([
-            'end_time' => Carbon::now(),
+            'rest_end' => Carbon::now(),
         ]);
 
         return redirect('/');
     }
 
-    public function getAttendance(Request $request)
+    public function getAttendance(Request $request, Work $work)
     {
         if (is_null($request->date)) {
             $selectDay = Carbon::today();

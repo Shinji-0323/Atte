@@ -18,8 +18,8 @@ class RestFactory extends Factory
         return [
             'work_id' => function () {
                 return Work::factory()->create()->id;},
-            'start_time' => $this->faker->time(),
-            'end_time' => $this->faker->time()
+            'rest_start' => $this->faker->time(),
+            'rest_end' => $this->faker->time()
         ];
     }
 }

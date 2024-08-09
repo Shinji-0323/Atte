@@ -11,8 +11,8 @@ class Rest extends Model
 
     protected $fillable = [
         'work_id',
-        'start_time',
-        'end_time',
+        'rest_start',
+        'rest_end',
         'total'
         ];
 
