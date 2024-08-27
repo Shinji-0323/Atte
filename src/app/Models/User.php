@@ -47,10 +47,4 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany('App\Models\Work');
     }
 
-
-    public function sendEmailVerifcationNotification()
-    {
-        $this->notify(new CustomVerifyMail("aaa"));
-    }
-
 }

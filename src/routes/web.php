@@ -14,17 +14,12 @@ use App\Http\Controllers\AttendanceController;
 |
 */
 
-Auth::routes(['verify' => true]);
 
-Route::middleware(['verified'])->group(
-    function () {
-        Route::middleware('auth')->group(function () {
-            Route::get('/', [AttendanceController::class, 'index']);
-            Route::post('/work/start', [AttendanceController::class, 'startWork']);
-            Route::post('/work/end', [AttendanceController::class, 'endWork']);
-            Route::post('/rest/start', [AttendanceController::class, 'startRest']);
-            Route::post('/rest/end', [AttendanceController::class, 'endRest']);
-            Route::get('/attendance', [AttendanceController::class, 'getAttendance']);
-        });
-    }
-);
+Route::middleware('auth', 'verified')->group(function () {
+    Route::get('/', [AttendanceController::class, 'index']);
+    Route::post('/work/start', [AttendanceController::class, 'startWork']);
+    Route::post('/work/end', [AttendanceController::class, 'endWork']);
+    Route::post('/rest/start', [AttendanceController::class, 'startRest']);
+    Route::post('/rest/end', [AttendanceController::class, 'endRest']);
+    Route::get('/attendance', [AttendanceController::class, 'getAttendance']);
+});
