@@ -13,7 +13,9 @@ use App\Http\Controllers\AttendanceController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::middleware('auth')->group(function () {
+
+
+Route::middleware('auth', 'verified')->group(function () {
     Route::get('/', [AttendanceController::class, 'index']);
     Route::post('/work/start', [AttendanceController::class, 'startWork']);
     Route::post('/work/end', [AttendanceController::class, 'endWork']);

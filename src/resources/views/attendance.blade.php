@@ -56,7 +56,7 @@
     </table>
     <div class="table-page">
         <div class="table-pagination">
-            {{ $attendances->links() }}
+            {{ $attendances->appends(request()->query())->links('pagination::bootstrap-4') }}
         </div>
     </div>
 </div>
