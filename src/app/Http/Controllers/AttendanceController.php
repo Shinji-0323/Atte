@@ -119,36 +119,13 @@ class AttendanceController extends Controller
     return view('/attendance', compact('attendances', 'selectDay', 'previous', 'next'));
     }
 
-     // 日別一覧表示
-    public function indexDate(Request $request)
+    // ユーザー一覧表示
+    public function user()
     {
+        $users = User::paginate(5);
         $displayDate = Carbon::now();
 
-        $users = DB::table('attendance_view_table')
-            ->whereDate('date', $displayDate)
-            ->paginate(5);
-
-        return view('attendance_date', compact('users', 'displayDate'));
-    }
-
-    // 日別一覧 / 抽出処理
-    public function perDate(Request $request)
-    {
-        $displayDate = Carbon::parse($request->input('displayDate'));
-
-        if ($request->has('prevDate')) {
-            $displayDate->subDay();
-        }
-
-        if ($request->has('nextDate')) {
-            $displayDate->addDay();
-        }
-
-        $users = DB::table('attendance_view_table')
-            ->whereDate('date', $displayDate)
-            ->paginate(5);
-
-        return view('attendance_date', compact('users', 'displayDate'));
+        return view('user', compact('users', 'displayDate'));
     }
 
 }

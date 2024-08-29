@@ -22,10 +22,6 @@ Route::middleware('auth', 'verified')->group(function () {
     Route::post('/rest/start', [AttendanceController::class, 'startRest']);
     Route::post('/rest/end', [AttendanceController::class, 'endRest']);
     Route::get('/attendance', [AttendanceController::class, 'getAttendance']);
-    Route::get('/attendance/user', [AttendanceController::class, 'indexUser'])
-    ->name('attendance/user');
-    Route::post('/attendance/user', [AttendanceController::class, 'perUser'])
-    ->name('per/user');
     Route::get('/user', [AttendanceController::class, 'user'])
     ->name('user');
 });
