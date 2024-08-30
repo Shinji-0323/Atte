@@ -99,16 +99,9 @@ class AttendanceController extends Controller
 
     public function getAttendance(Request $request, Work $work)
     {
-        if (is_null($request->date)) {
-            $selectDay = Carbon::today();
-            $previous = Carbon::yesterday();
-            $next = Carbon::tomorrow();
-
-        } else {
-            $selectDay = new Carbon($request->date);
-            $previous = (new Carbon($request->date))->subDay();
-            $next = (new Carbon($request->date))->addDay();
-        }
+        $selectDay = Carbon::today();
+        $previous = Carbon::yesterday();
+        $next = Carbon::tomorrow();
 
         $attendances = DB::table('rests')
         ->rightJoin('works', 'rests.work_id', '=', 'works.id')
@@ -119,13 +112,46 @@ class AttendanceController extends Controller
     return view('/attendance', compact('attendances', 'selectDay', 'previous', 'next'));
     }
 
-    // ユーザー一覧表示
+    public function perDate(Request $request)
+    {
+        $selectDay = Carbon::parse($request->input('displayDate'));
+
+        if ($request->has('prevDate')) {
+            $selectDay->subDay();
+        }
+
+        if ($request->has('nextDate')) {
+            $selectDay->addDay();
+        }
+
+        $attendances = DB::table('rests')
+        ->rightJoin('works', 'rests.work_id', '=', 'works.id')
+        ->join('users', 'works.user_id', '=', 'users.id')
+            ->whereDate('date', $selectDay)
+            ->paginate(5);
+
+        return view('attendance', compact('attendances', 'selectDay'));
+    }
+
     public function user()
     {
         $users = User::paginate(5);
         $displayDate = Carbon::now();
 
         return view('user', compact('users', 'displayDate'));
+    }
+
+    public function userData(Request $request)
+    {
+        $displayUser = Auth::user()->name;
+        $attendances = DB::table('rests')
+        ->rightJoin('works', 'rests.work_id', '=', 'works.id')
+        ->join('users', 'works.user_id', '=', 'users.id')
+        ->where('name', $displayUser)
+        ->paginate(5);
+        $userList = User::all();
+
+        return view('users_data', compact('attendances', 'displayUser', 'userList'));
     }
 
 }

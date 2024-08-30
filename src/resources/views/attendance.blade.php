@@ -6,12 +6,13 @@
 
 @section('content')
 <div class="header">
-    <form class="header__wrap" action="/attendance" method="get">
+    <form class="header__wrap" action="/attendance" method="post">
         @csrf
         @if (isset($previous))
             <button class="date__change-button" name="prevDate" value="{{ $previous->format('Y-m-d') }}"><</button>
         @endif
     </form>
+        <input type="hidden" name="displayDate" value="{{ $selectDay }}">
         <p class="header__text">{{ $selectDay->format('Y-m-d') }}</p>
     <form class="header__wrap" action="/attendance" method="get">
         @csrf

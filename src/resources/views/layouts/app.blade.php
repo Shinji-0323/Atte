@@ -26,6 +26,12 @@
                     <a class="header__item-link" href="/attendance">日付一覧</a>
                 </li>
                 <li class="header__right-item">
+                    <a class="header__item-link" href="/user">ユーザー一覧</a>
+                </li>
+                <li class="header__right-item">
+                    <a class="header__item-link" href="/users/data/{id}">勤怠表</a>
+                </li>
+                <li class="header__right-item">
                     <form action="/logout" method="post">
                         @csrf
                         <button class="header__item-link" type="submit">ログアウト</button>
