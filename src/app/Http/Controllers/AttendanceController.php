@@ -100,8 +100,6 @@ class AttendanceController extends Controller
     public function getAttendance(Request $request, Work $work)
     {
         $selectDay = Carbon::today();
-        $previous = Carbon::yesterday();
-        $next = Carbon::tomorrow();
 
         $attendances = DB::table('rests')
         ->rightJoin('works', 'rests.work_id', '=', 'works.id')
@@ -109,10 +107,10 @@ class AttendanceController extends Controller
         ->whereDate('works.date', $selectDay)
         ->paginate(5);
 
-    return view('/attendance', compact('attendances', 'selectDay', 'previous', 'next'));
+    return view('/attendance', compact('attendances', 'selectDay'));
     }
 
-    public function perDate(Request $request)
+    public function postAttendance(Request $request)
     {
         $selectDay = Carbon::parse($request->input('displayDate'));
 
@@ -149,6 +147,23 @@ class AttendanceController extends Controller
         ->join('users', 'works.user_id', '=', 'users.id')
         ->where('name', $displayUser)
         ->paginate(5);
+        $userList = User::all();
+
+        return view('users_data', compact('attendances', 'displayUser', 'userList'));
+    }
+
+    public function userDataPer(Request $request)
+    {
+        $searchName = $request->input('search_name');
+        $user = User::where('name', $searchName)->first();
+        $displayUser = $user ? $user->name : null;
+
+        $attendances = DB::table('rests')
+        ->rightJoin('works', 'rests.work_id', '=', 'works.id')
+        ->join('users', 'works.user_id', '=', 'users.id')
+            ->where('name', $searchName)
+            ->paginate(5);
+
         $userList = User::all();
 
         return view('users_data', compact('attendances', 'displayUser', 'userList'));
