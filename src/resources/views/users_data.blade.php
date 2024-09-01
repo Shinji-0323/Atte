@@ -6,7 +6,7 @@
 @endsection
 
 @section('content')
-    <form class="header__wrap" action="" method="post">
+    <form class="header__wrap" action="/users/data/{id}" method="post">
         @csrf
 
         @if($displayUser != null)
