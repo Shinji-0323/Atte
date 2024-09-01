@@ -5,21 +5,13 @@
 @endsection
 
 @section('content')
-<div class="header">
-    <form class="header__wrap" action="/attendance" method="get">
-        @csrf
-        @if (isset($previous))
-            <button class="date__change-button" name="prevDate" value="{{ $previous->format('Y-m-d') }}"><</button>
-        @endif
-    </form>
+<form class="header__wrap" action="/attendance" method="post">
+    @csrf
+        <button class="date__change-button" name="prevDate"><</button>
+        <input type="hidden" name="displayDate" value="{{ $selectDay }}">
         <p class="header__text">{{ $selectDay->format('Y-m-d') }}</p>
-    <form class="header__wrap" action="/attendance" method="get">
-        @csrf
-        @if (isset($next))
-            <button class="date__change-button" name="nextDate" value="{{ $next->format('Y-m-d') }}">></button>
-        @endif
-    </form>
-</div>
+        <button class="date__change-button" name="nextDate">></button>
+</form>
 
 <div class="table__wrap">
     <table class="attendance__table">
