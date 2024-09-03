@@ -14,7 +14,7 @@ class Rest extends Model
         'rest_start',
         'rest_end',
         'total'
-        ];
+    ];
 
     public function works()
     {

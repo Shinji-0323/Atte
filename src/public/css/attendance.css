@@ -53,7 +53,7 @@
 }
 
 .pagination li:not(.active) {
-    border: 1px solid #E0DFDE;
+    border: 1px solid #e0dfde;
     padding: 4px 12px;
 }
 
@@ -65,5 +65,5 @@
     padding: 4px 12px;
     border: 1px solid steelblue;
     background-color: steelblue;
-    color: #FFF;
+    color: #fff;
 }

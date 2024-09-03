@@ -15,7 +15,7 @@ class Work extends Model
         'work_start',
         'work_end',
         'total'
-        ];
+    ];
 
     public function user() {
         return $this->belongsTo('App\Models\User');

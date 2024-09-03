@@ -69,7 +69,7 @@ class AttendanceController extends Controller
         ]);
 
         return redirect('/');
-        }
+    }
 
     public function startRest(Request $request)
     {
@@ -107,7 +107,7 @@ class AttendanceController extends Controller
         ->whereDate('works.date', $selectDay)
         ->paginate(5);
 
-    return view('/attendance', compact('attendances', 'selectDay'));
+        return view('/attendance', compact('attendances', 'selectDay'));
     }
 
     public function postAttendance(Request $request)
@@ -168,5 +168,4 @@ class AttendanceController extends Controller
 
         return view('users_data', compact('attendances', 'displayUser', 'userList'));
     }
-
 }
