@@ -29,7 +29,7 @@
                         <a class="header__item-link" href="/user">ユーザー一覧</a>
                     </li>
                     <li class="header__right-item">
-                        <a class="header__item-link" href="/users/data/{id}">勤怠表</a>
+                        <a class="header__item-link" href="/users/data/{id}">ユーザー別勤怠表</a>
                     </li>
                     <li class="header__right-item">
                         <form action="/logout" method="post">
