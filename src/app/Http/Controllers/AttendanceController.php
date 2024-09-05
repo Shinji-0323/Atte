@@ -99,36 +99,36 @@ class AttendanceController extends Controller
 
     public function getAttendance(Request $request, Work $work)
     {
-        $selectDay = Carbon::today();
+        $displayDate = Carbon::today();
 
         $attendances = DB::table('rests')
         ->rightJoin('works', 'rests.work_id', '=', 'works.id')
         ->join('users', 'works.user_id', '=', 'users.id')
-        ->whereDate('works.date', $selectDay)
+        ->whereDate('works.date', $displayDate)
         ->paginate(5);
 
-        return view('/attendance', compact('attendances', 'selectDay'));
+        return view('/attendance', compact('attendances', 'displayDate'));
     }
 
     public function postAttendance(Request $request)
     {
-        $selectDay = Carbon::parse($request->input('displayDate'));
+        $displayDate = Carbon::parse($request->input('displayDate'));
 
         if ($request->has('prevDate')) {
-            $selectDay->subDay();
+            $displayDate->subDay();
         }
 
         if ($request->has('nextDate')) {
-            $selectDay->addDay();
+            $displayDate->addDay();
         }
 
         $attendances = DB::table('rests')
         ->rightJoin('works', 'rests.work_id', '=', 'works.id')
         ->join('users', 'works.user_id', '=', 'users.id')
-            ->whereDate('date', $selectDay)
+            ->whereDate('date', $displayDate)
             ->paginate(5);
 
-        return view('attendance', compact('attendances', 'selectDay'));
+        return view('/attendance', compact('attendances', 'displayDate'));
     }
 
     public function user()
@@ -136,7 +136,7 @@ class AttendanceController extends Controller
         $users = User::paginate(5);
         $displayDate = Carbon::now();
 
-        return view('user', compact('users', 'displayDate'));
+        return view('/user', compact('users', 'displayDate'));
     }
 
     public function userData(Request $request)
