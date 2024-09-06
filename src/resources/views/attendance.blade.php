@@ -53,5 +53,5 @@
             @endforeach
         </table>
     </div>
-    {{ $attendances->links('pagination::bootstrap-4') }}
+    {{ $attendances->appends(['displayDate' => $displayDate->toDateString()])->links('pagination::bootstrap-4') }}
 @endsection
