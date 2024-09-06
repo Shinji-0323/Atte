@@ -26,7 +26,6 @@ class AttendanceController extends Controller
             $rest = Rest::where('work_id', $work->id)
                 ->orderBy('rest_start', 'desc')
                 ->first();
-
             if (!$rest) {
                 $status = 2; // 勤務中
             } elseif ($rest && !$rest->rest_end) {
@@ -138,6 +137,29 @@ class AttendanceController extends Controller
     {
         $users = User::paginate(5);
         $displayDate = Carbon::now();
+
+        foreach ($users as $user) {
+            $work = Work::where('user_id', $user->id)
+                ->whereDate('date', $displayDate)
+                ->first();
+
+            if (!$work) {
+                $user->status = 1; // 勤務開始前
+            } elseif ($work && !$work->work_end) {
+                $rest = Rest::where('work_id', $work->id)
+                    ->orderBy('rest_start', 'desc')
+                    ->first();
+                if (!$rest) {
+                    $user->status = 2; // 勤務中
+                } elseif ($rest && !$rest->rest_end) {
+                    $user->status = 3; // 休憩中
+                } else {
+                    $user->status = 2; // 勤務中
+                }
+            } else {
+                $user->status = 4; // 勤務終了
+            }
+        }
 
         return view('/user', compact('users', 'displayDate'));
     }
