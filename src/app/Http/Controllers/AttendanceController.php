@@ -99,24 +99,21 @@ class AttendanceController extends Controller
 
     public function getAttendance(Request $request)
     {
-        // クエリから日付を取得、なければ今日の日付を使用
         $displayDate = $request->query('displayDate', Carbon::today()->toDateString());
         $displayDate = Carbon::parse($displayDate);
 
-        // 勤怠データを取得
         $attendances = DB::table('rests')
             ->rightJoin('works', 'rests.work_id', '=', 'works.id')
             ->join('users', 'works.user_id', '=', 'users.id')
             ->whereDate('works.date', $displayDate)
             ->paginate(5)
-            ->appends(['displayDate' => $displayDate->toDateString()]); // ページネーションに日付を保持
+            ->appends(['displayDate' => $displayDate->toDateString()]);
 
         return view('attendance', compact('attendances', 'displayDate'));
     }
 
     public function postAttendance(Request $request)
     {
-        // フォームからの日付取得
         $displayDate = Carbon::parse($request->input('displayDate'));
 
         if ($request->has('prevDate')) {
@@ -127,16 +124,16 @@ class AttendanceController extends Controller
             $displayDate->addDay();
         }
 
-        // 勤怠データを取得
         $attendances = DB::table('rests')
             ->rightJoin('works', 'rests.work_id', '=', 'works.id')
             ->join('users', 'works.user_id', '=', 'users.id')
             ->whereDate('works.date', $displayDate)
             ->paginate(5)
-            ->appends(['displayDate' => $displayDate->toDateString()]); // ページネーションに日付を保持
+            ->appends(['displayDate' => $displayDate->toDateString()]);
 
         return view('attendance', compact('attendances', 'displayDate'));
     }
+
     public function user()
     {
         $users = User::paginate(5);
