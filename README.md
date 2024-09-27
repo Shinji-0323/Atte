@@ -13,6 +13,10 @@
 
 勤怠管理システム　　http://atte-web-lb-1252239849.ap-northeast-1.elb.amazonaws.com/login
 
+## アーキテクチャ
+
+![alt text](Atte_アーキテクチャ図.png)
+
 ## 機能一覧
 
 - ログイン機能
@@ -92,4 +96,3 @@ php artisan db:seed
 - phpMyAdmin：http://localhost:8080/
 - MailHog：http://localhost:8025/
 
-## AWS 構成図
