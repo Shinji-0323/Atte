@@ -13,11 +13,15 @@
 
 ### 開発環境
 - ローカル：http://localhost/
+  アプリケーションにアクセスするためのURL。
 - phpMyAdmin：http://localhost:8080/
+  データベースを管理するためのツール。
 - MailHog：http://localhost:8025/
+  開発用のメールキャッチャー。
 
 ### 本番環境
 - ロードバランサー（現在停止中）：http://atte-web-lb-1252239849.ap-northeast-1.elb.amazonaws.com
+※現在はカスタムドメイン未設定
 
 ## 機能一覧
 
@@ -31,16 +35,25 @@
 
 ## 仕様技術
 
-- PHP7.4.9
-- Laravel8.83.27
-- MySQL15.1
-- Nginx
-- Docker/Docker-compose
-- AWS
-  - VPC
-  - EC2
-  - RDS
-  - S3
+- **バックエンド**
+  - PHP7.4.9
+  - Laravel8.83.27
+  - MySQL8.0.26（ローカル環境）
+  - MySQL8.0.26（Docker環境）
+
+- **フロントエンド**
+  - Nginx1.21.1
+
+- **開発環境**
+  - Docker/Docker-compose
+
+- **デプロイ環境**
+  - AWS
+    - VPC
+    - EC2
+    - RDS
+    - S3
+    - ロードバランサー
 
 ## テーブル設計
 
