@@ -11,8 +11,13 @@
 
 ## アプリケーションURL
 
-勤怠管理システム　　http://54.95.127.19/   
-Mailhog 　　　　　http://54.95.127.19:8025
+### 開発環境
+- ローカル：http://localhost/
+- phpMyAdmin：http://localhost:8080/
+- MailHog：http://localhost:8025/
+
+### 本番環境
+- ロードバランサー：http://54.95.127.19/
 
 ## 機能一覧
 - ログイン機能
@@ -77,9 +82,3 @@ php artisan migrate
 ``` bash
 php artisan db:seed
 ```
-
-
-## URL
-- 開発環境：http://localhost/
-- phpMyAdmin：http://localhost:8080/
-- MailHog：http://localhost:8025/
