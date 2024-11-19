@@ -12,11 +12,11 @@
 ## アプリケーション URL
 
 ### 開発環境
-- ローカル：http://localhost/
+- ローカル：http://localhost/  
   アプリケーションにアクセスするためのURL。
-- phpMyAdmin：http://localhost:8080/
+- phpMyAdmin：http://localhost:8080/  
   データベースを管理するためのツール。
-- MailHog：http://localhost:8025/
+- MailHog：http://localhost:8025/  
   開発用のメールキャッチャー。
 
 ### 本番環境
