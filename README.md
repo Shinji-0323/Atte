@@ -20,7 +20,7 @@
   開発用のメールキャッチャー。
 
 ### 本番環境
-- ロードバランサー（現在停止中）：http://atte-web-lb-1252239849.ap-northeast-1.elb.amazonaws.com
+- ロードバランサー（現在停止中）：http://atte-web-lb-1252239849.ap-northeast-1.elb.amazonaws.com  
 ※現在はカスタムドメイン未設定
 
 ## 機能一覧
