@@ -11,11 +11,8 @@
 
 ## アプリケーション URL
 
-勤怠管理システム　　http://atte-web-lb-1252239849.ap-northeast-1.elb.amazonaws.com/login
-
-## アーキテクチャ
-
-![alt text](Atte_アーキテクチャ図.png)
+勤怠管理システム　　http://54.95.127.19/   
+Mailhog 　　　　　http://54.95.127.19:8025
 
 ## 機能一覧
 
